@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import com.di.world.dao.FlagDAO;
@@ -24,6 +25,7 @@ public class FlagDAOImpl implements FlagDAO {
 		rest = new RestServices();
 	}
 
+	@Cacheable("flags")
 	public List<FlagInfoEntity> getFlags() throws Exception {
 		List<FlagInfoEntity> list = new ArrayList<FlagInfoEntity>();
 		String result = rest.get(url + "FullCountryInfoAllCountries");

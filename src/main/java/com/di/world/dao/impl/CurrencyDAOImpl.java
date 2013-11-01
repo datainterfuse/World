@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import com.di.world.dao.CurrencyDAO;
@@ -39,6 +40,7 @@ public class CurrencyDAOImpl implements CurrencyDAO {
 		return new XmlUtilities().unMarshal(result, CountryListEntity.class);
 	}
 
+	@Cacheable("currencies")
 	public CurrencyCountryListEntity getCurrency() throws Exception {
 		CurrencyCountryListEntity entity = new CurrencyCountryListEntity();
 		/*CurrencyListEntity currency = getCurrencyNames();

@@ -9,6 +9,7 @@
     xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:util="http://www.springframework.org/schema/util"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:cache="http://www.springframework.org/schema/cache"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -16,7 +17,8 @@
         http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-        http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
+        http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd"
         >
 	<mvc:resources mapping="/css/**" location="/css/"/>
 	<mvc:resources location="/images/" mapping="/images/**"/>
@@ -25,6 +27,8 @@
 	
     <context:annotation-config />
     <context:component-scan base-package="com.di.world" />
+    
+    <cache:annotation-driven />
  
     <bean id="jspViewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -39,4 +43,16 @@
         <property name="basename" value="classpath:messages"></property>
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
+    
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+	  <property name="caches">
+	    <set>
+	      <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/>
+	      <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="flags"/>
+	      <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="languages"/>
+	      <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="currencies"/>
+	    </set>
+	  </property>
+	</bean>
+    
 </beans>

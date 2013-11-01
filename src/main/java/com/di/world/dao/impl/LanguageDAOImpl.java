@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import com.di.world.dao.LanguageDAO;
@@ -29,6 +30,7 @@ public class LanguageDAOImpl implements LanguageDAO {
 		rest = new RestServices();
 	}
 
+	@Cacheable("languages")
 	public LanguageCountryListEntity getLanguages() throws Exception {
 		LanguageCountryListEntity entity = new LanguageCountryListEntity();
 		Map<String, List<CountryEntity>> values = new HashMap<String, List<CountryEntity>>();
